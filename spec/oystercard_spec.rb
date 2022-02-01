@@ -31,18 +31,26 @@ describe Oystercard do
     it 'is initially not in journey' do 
       expect(subject).not_to be_in_journey
     end
+  end
 
-    it 'can touch in' do 
-      subject.touch_in 
-      expect(subject).to be_in_journey 
-    end 
+  describe '#touch_in' do
+    # it 'can touch in' do 
+    #   subject.touch_in 
+    #   expect(subject).to be_in_journey 
+    # end
 
-    it 'can touch do' do 
-      subject.touch_in 
-      subject.touch_out 
-      expect(subject).not_to be_in_journey
-   end 
-  end 
+    it 'Will not touch_in if it is below the minimum balance' do
+      expect { subject.touch_in }.to raise_error "Insufficient funds to touch in, Please top up"
+    end
+  end
+
+  describe '#touch_out' do
+    # it 'can touch do' do 
+    #   subject.touch_in 
+    #   subject.touch_out 
+  #   #   expect(subject).not_to be_in_journey
+  #  end 
+  end
 end
 
 
