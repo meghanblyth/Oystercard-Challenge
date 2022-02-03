@@ -9,6 +9,7 @@ class Oystercard
   def initialize
     @balance = 0
     @entry_station = nil 
+    @journeys_list = [] 
   end
 
   def top_up(amount)
@@ -17,15 +18,7 @@ class Oystercard
   end
 
   def in_journey?
-    # return @entry_station == nil ? false : true 
-
     !!entry_station 
-
-    # if entry_station == true 
-    #   return true 
-    # else 
-    #   return false 
-    # end 
   end 
 
   def touch_in(station)
@@ -33,9 +26,9 @@ class Oystercard
     @entry_station = station 
   end 
 
-  def touch_out
+  def touch_out(station) 
     deduct(MINIMUM_FARE)
-   @entry_station = nil 
+    @entry_station = nil 
   end
 
   private

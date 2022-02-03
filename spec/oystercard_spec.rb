@@ -3,6 +3,8 @@ require_relative '../lib/oystercard.rb'
 describe Oystercard do
 
   let(:station){ double :station }
+  let(:exit_station) { double :station } 
+  let(:journey) { { start: station, end: exit_station } } 
 
   it 'should have an opening balance of 0' do
     expect(subject.balance).to eq Oystercard::DEFAULT_BALANCE
@@ -58,8 +60,15 @@ describe Oystercard do
     it 'can touch out' do
       subject.top_up(Oystercard::MINIMUM_FARE)
       subject.touch_in(station)
-      expect { subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
+      expect { subject.touch_out(exit_station) }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
     end
+
+    it 'saves the journey' do 
+      subject.top_up(5)
+      subject.touch_in(station)
+      subject.touch_out(exit_station) 
+      expect(subject.journeys_list).to include(journey) 
+    end 
   #     subject.touch_in 
   #     subject.touch_out 
   #     expect(subject).not_to be_in_journey
