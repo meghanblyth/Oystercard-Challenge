@@ -1,6 +1,9 @@
 require_relative '../lib/oystercard.rb' 
 
 describe Oystercard do
+
+  let(:station){ double :station }
+
   it 'should have an opening balance of 0' do
     expect(subject.balance).to eq Oystercard::DEFAULT_BALANCE
   end
@@ -27,28 +30,34 @@ describe Oystercard do
   #   end
   # end
 
-  describe '#in_journey?' do 
-    it 'is initially not in journey' do 
-      expect(subject).not_to be_in_journey
+  describe '#in_journey?' do #testing the method, not the attribute - using a ? 
+    xit 'is initially not in journey' do #Add an x to pend
+      expect(subject).not_to be_in_journey #testing the instance variable "in journey" - still passes because it's NOT in journey, although it can no longer read the instance variable 
     end
   end
 
   describe '#touch_in' do
-    # it 'can touch in' do 
-    #   subject.touch_in 
-    #   expect(subject).to be_in_journey 
-    # end
+    xit 'can touch in' do
+      subject.top_up(5)
+      subject.touch_in(station) 
+      expect(subject).to be_in_journey
+    end
+
+    it 'stores the entry station' do 
+      subject.top_up(5)
+      subject.touch_in(station)  
+      expect(subject.entry_station).to eq station 
+    end 
 
     it 'Will not touch_in if it is below the minimum balance' do
-      expect { subject.touch_in }.to raise_error "Insufficient funds to touch in, Please top up"
+      expect { subject.touch_in(station) }.to raise_error "Insufficient funds to touch in, Please top up"
     end
   end
 
   describe '#touch_out' do
     it 'can touch out' do
-      card = Oystercard.new
       subject.top_up(Oystercard::MINIMUM_FARE)
-      subject.touch_in
+      subject.touch_in(station)
       expect { subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
     end
   #     subject.touch_in 
