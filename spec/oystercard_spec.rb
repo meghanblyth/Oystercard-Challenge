@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-require_relative '../lib/oystercard.rb' 
-require_relative '../lib/journey.rb'
-=======
 require_relative '../lib/oystercard.rb'
->>>>>>> 18688ea5cf08a5a4c875295b6bc67313f6a32dfd
 
 describe Oystercard do
   let(:station) { double :station }
@@ -72,18 +67,6 @@ describe Oystercard do
       expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-Oystercard::MINIMUM_FARE)
     end
 
-<<<<<<< HEAD
-    # it 'saves the journey' do 
-    #   subject.top_up(5)
-    #   subject.touch_in(station)
-    #   subject.touch_out(exit_station) 
-    #   expect(subject.journeys_list).to include(journey) 
-    # end 
-  #     subject.touch_in 
-  #     subject.touch_out 
-  #     expect(subject).not_to be_in_journey
-  #  end 
-=======
     it 'saves the journey' do
       subject.top_up(5)
       subject.touch_in(station)
@@ -94,6 +77,5 @@ describe Oystercard do
     #     subject.touch_out
     #     expect(subject).not_to be_in_journey
     #  end
->>>>>>> 18688ea5cf08a5a4c875295b6bc67313f6a32dfd
   end
 end
